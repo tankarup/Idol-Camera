@@ -122,12 +122,12 @@ window.onload = () => {
   document.querySelector("#again").addEventListener("click", () => {
     document.getElementById('again').style.visibility = 'hidden';
     document.getElementById('shutter').style.display = 'inline';
-    document.getElementById('camera').style.display = 'inline';
+    document.getElementById('camera').style.display = 'inline-block';
     document.getElementById('picture').style.display = 'none';
     document.getElementById('result_text').innerText = '';
     document.getElementById('result_img').innerHTML = '';
-    video.play();
 
+    video.play();
   });
 
   /**
