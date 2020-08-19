@@ -21,11 +21,12 @@ h1 {
 	font-size: small;
 }
 
-.footer {
-	font-size: small;
+#footer {
+  font-size: small;
 }
-.footer p, ul{
+#footer p, ul{
 	margin: 0;
+
 }
 
 #captured p{
@@ -48,9 +49,11 @@ h1 {
 
 
 <form>
-  <button type="button" class="btn btn-primary" id="shutter" style="display: block; margin: 0 0 0 auto;">撮影！</button>
+  <button type="button" class="btn btn-primary" id="shutter" style="float:right; margin-right: 10px;">撮影！</button>
+  <button type="button" class="btn btn-info" id="again" style="float: right; visibility: hidden; margin-right: 10px;">もう1回する</button>
+
 </form>
-<div id="results" class="mx-auto" style="width:300px;">
+<div id="results" class="mx-auto" style="width:300px; clear:both;">
   <div id="result_text"></div>
   <div id="result_img"  width="300" height="200"></div>
   

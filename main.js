@@ -118,20 +118,30 @@ window.onload = () => {
     console.log(err.name + ": " + err.message);
   });
 
+  //もういちどボタン
+  document.querySelector("#again").addEventListener("click", () => {
+    document.getElementById('again').style.visibility = 'hidden';
+    document.getElementById('shutter').style.display = 'inline';
+    document.getElementById('camera').style.display = 'inline';
+    document.getElementById('picture').style.display = 'none';
+    document.getElementById('result_text').innerText = '';
+    document.getElementById('result_img').innerHTML = '';
 
+  });
 
   /**
    * シャッターボタン
    */
    document.querySelector("#shutter").addEventListener("click", () => {
 
-
-  document.getElementById('camera').style.display = 'none';
-  document.getElementById('picture').style.display = 'inline';
+    document.getElementById('again').style.visibility = 'visible';
+    document.getElementById('shutter').style.display = 'none';
+    document.getElementById('camera').style.display = 'none';
+    document.getElementById('picture').style.display = 'inline';
 
      const ctx = canvas.getContext("2d");
-     
-     video.pause();  // 映像を停止
+
+     video.pause(); // 映像を停止
      /*
      setTimeout( () => {
        video.play();    // 0.5秒後にカメラ再開
@@ -140,53 +150,53 @@ window.onload = () => {
 
      // canvasに画像を貼り付ける
      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-     
+
      //const chara = new Image();
      //chara.src='arisa.png';
      //chara.onload = () => {
      // ctx.drawImage(chara, 0, 0, canvas.width, canvas.height);
 
-      //色を取得
-      const img_data = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = img_data.data;
-      console.log(data);
-      let sum_rgb = {
-        r: 0,
-        g: 0,
-        b: 0
-      };
-      for (let i = 0; i < data.length; i += 4) {
-        sum_rgb.r += data[i];
-        sum_rgb.g += data[i + 1];
-        sum_rgb.b += data[i + 2];
-      }
-      let rgb = sum_rgb;
-      console.log(rgb);
-      for (let key in rgb) {
-        rgb[key] = rgb[key]/data.length;
-      }
-      let [h, s, v] = rgb2hsv([rgb.r, rgb.g, rgb.b]);
+     //色を取得
+     const img_data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+     const data = img_data.data;
+     console.log(data);
+     let sum_rgb = {
+       r: 0,
+       g: 0,
+       b: 0
+     };
+     for (let i = 0; i < data.length; i += 4) {
+       sum_rgb.r += data[i];
+       sum_rgb.g += data[i + 1];
+       sum_rgb.b += data[i + 2];
+     }
+     let rgb = sum_rgb;
+     console.log(rgb);
+     for (let key in rgb) {
+       rgb[key] = rgb[key] / data.length;
+     }
+     let [h, s, v] = rgb2hsv([rgb.r, rgb.g, rgb.b]);
 
-      console.log([h, s, v]);
+     console.log([h, s, v]);
 
-      //色相が一番近いアイドルを探す
-      //https://qiita.com/Yuki_BB3/items/db0914cccb1a21a96de0
-      const returnLatestdata = (req, h) => {
-        let hashList = req;
-        let tempAgeList = hashList.map(element => {
-            return Math.abs(element.hue -h);
-        });
-        let elmNum = tempAgeList.indexOf(Math.min.apply(null, tempAgeList));
-        return hashList[elmNum];
-    };
+     //色相が一番近いアイドルを探す
+     //https://qiita.com/Yuki_BB3/items/db0914cccb1a21a96de0
+     const returnLatestdata = (req, h) => {
+       let hashList = req;
+       let tempAgeList = hashList.map(element => {
+         return Math.abs(element.hue - h);
+       });
+       let elmNum = tempAgeList.indexOf(Math.min.apply(null, tempAgeList));
+       return hashList[elmNum];
+     };
 
-    const found_idol = returnLatestdata(idols, h);
+     const found_idol = returnLatestdata(idols, h);
 
-    document.getElementById('result_text').innerText = `あなたが撮影したのは${found_idol['label']}さんですね？`;
-    document.getElementById('result_img').innerHTML = `<img src="images/${found_idol['name']}.png" width="300">`;
+     document.getElementById('result_text').innerText = `あなたが撮影したのは${found_idol['label']}さんですね？`;
+     document.getElementById('result_img').innerHTML = `<img src="images/${found_idol['name']}.png" width="300">`;
 
 
-    // };
+     // };
 
 
 
