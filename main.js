@@ -126,6 +126,7 @@ window.onload = () => {
     document.getElementById('picture').style.display = 'none';
     document.getElementById('result_text').innerText = '';
     document.getElementById('result_img').innerHTML = '';
+    video.play();
 
   });
 
